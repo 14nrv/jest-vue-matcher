@@ -33,7 +33,6 @@
   },
   "main": "./dist/jest-vue-matcher.common.js",
   "files": [
-    "src/*",
     "dist/*"
   ],
   "repository": {
