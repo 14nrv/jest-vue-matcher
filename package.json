@@ -1,7 +1,9 @@
 {
-  "name": "vtu-matcher",
+  "name": "jest-vue-matcher",
   "version": "0.1.0",
-  "private": true,
+  "description": "Additional jest matchers for vue",
+  "author": "14nrv",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

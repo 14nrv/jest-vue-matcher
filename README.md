@@ -1,4 +1,4 @@
-# vtu-matcher
+# jest-vue-matcher
 
 ## Project setup
 ```
