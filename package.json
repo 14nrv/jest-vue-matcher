@@ -1,6 +1,6 @@
 {
   "name": "jest-vue-matcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Additional jest matchers for vue",
   "author": "14nrv",
   "license": "MIT",

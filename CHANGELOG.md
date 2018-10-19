@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/14nrv/jest-vue-matcher/compare/v1.0.0...v1.0.1) (2018-10-19)
+
+
+### Bug Fixes
+
+* remove src folder for publish ([eee4d4a](https://github.com/14nrv/jest-vue-matcher/commit/eee4d4a))
+
 # 1.0.0 (2018-10-19)
 
 
