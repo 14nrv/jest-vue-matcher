@@ -3,9 +3,14 @@ module.exports = {
   env: {
     node: true
   },
-  'extends': [
+  extends: [
     'plugin:vue/essential',
+    'plugin:jest/recommended',
     '@vue/standard'
+  ],
+  plugins: [
+    'vue',
+    'jest'
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
