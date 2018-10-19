@@ -24,5 +24,6 @@
     "babel-jest": "^23.0.1",
     "vue-template-compiler": "^2.5.17"
     "eslint-plugin-jest": "^21.25.1"
+    "wallaby-vue-compiler": "^1.0.3"
   }
 }
