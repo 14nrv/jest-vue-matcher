@@ -8,7 +8,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test": "vue-cli-service test:unit --coverage",
+    "test:tdd": "vue-cli-service test:unit --coverage --watchAll"
   },
   "dependencies": {
     "vue": "^2.5.17"
