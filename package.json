@@ -5,8 +5,7 @@
   "author": "14nrv",
   "license": "MIT",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name jest-vue-matcher ./src/matchers.js",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit --coverage",
     "test:tdd": "vue-cli-service test:unit --coverage --watchAll"
