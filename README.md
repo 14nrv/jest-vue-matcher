@@ -68,8 +68,6 @@ describe('MyComponent', () => {
   expect(wrapper).not.toEmit('not eventName')
   ```
 * toEmitWith(eventName, eventValue)
-
-  eventValue can be a string, an object or an array
   ```js
   expect(wrapper).toEmitWith('eventName', 'eventValue')
   expect(wrapper).not.toEmitWith('not eventName', { data: 'eventValue' })
