@@ -48,17 +48,17 @@ const toBeADomElement = selector => {
   }
 }
 
-const toHaveAClass = (selector, className) => {
-  const getSelector = () => {
-    try {
-      const isWrapper = selector.isVueInstance()
-      return isWrapper && w
-    } catch (error) {
-      return w.find(selector)
-    }
+const getSelector = selector => {
+  try {
+    const isWrapper = selector.isVueInstance()
+    return isWrapper && w
+  } catch (error) {
+    return w.find(selector)
   }
+}
 
-  const elClassName = getSelector().classes()
+const toHaveAClass = (selector, className) => {
+  const elClassName = getSelector(selector).classes()
   const pass = elClassName.includes(className)
 
   return {
