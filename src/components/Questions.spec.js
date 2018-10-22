@@ -1,9 +1,6 @@
 import { mount } from '@vue/test-utils'
-import matchers from '../matchers'
+import matchers from '@/matchers'
 import Questions from '@/components/Questions.vue'
-// import vtuMatchers from 'vtu-matchers'
-// import helpers from 'vtu-helpers'
-// https://github.com/hmsk/jest-matcher-vue-test-utils
 
 const inputTitle = 'input[name=title]'
 let wrapper
