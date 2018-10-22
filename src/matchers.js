@@ -1,53 +1,9 @@
-import { matcherHint, printExpected, printReceived } from 'jest-matcher-utils'
+// @ts-ignore
+import matcher from 'expect/build/matchers'
 
 let w
 
-const toHaveText = (selector, text) => {
-  const el = w.find(selector)
-  const elHtml = el.html()
-  const pass = elHtml.includes(text)
-
-  return {
-    actual: selector,
-    message: () =>
-      `${matcherHint(pass ? '.not.toHaveText' : '.toHaveText')}\n\n` +
-      'Expected string (using .includes):\n' +
-      `  ${printExpected(elHtml)}\n` +
-      `To ${pass ? 'not ' : ''}contains value:\n` +
-      `  ${printReceived(text)}`,
-    pass
-  }
-}
-
-const toBeVisible = selector => {
-  const el = w.find(selector)
-  const pass = el.isVisible()
-
-  return {
-    message: () =>
-      `${matcherHint(pass ? '.not.toBeVisible' : '.toBeVisible')}\n\n` +
-      `Expected value to ${pass ? 'not ' : ''}be (using ===):\n` +
-      `  ${!pass}\n` +
-      'Received:\n' +
-      `  ${pass}`,
-    pass
-  }
-}
-
-const toBeADomElement = selector => {
-  const pass = w.contains(selector)
-
-  return {
-    message: () =>
-      `${matcherHint(pass ? '.not.toBeADomElement' : '.toBeADomElement')}\n\n` +
-      `Expected value to ${pass ? 'not ' : ''}be (using ===):\n` +
-      `  ${!pass}\n` +
-      'Received:\n' +
-      `  ${pass}`,
-    pass
-  }
-}
-
+// utils
 const getSelector = selector => {
   try {
     const isWrapper = selector.isVueInstance()
@@ -57,103 +13,47 @@ const getSelector = selector => {
   }
 }
 
-const toHaveAClass = (selector, className) => {
-  const elClassName = getSelector(selector).classes()
-  const pass = elClassName.includes(className)
+// matcher
+const toHaveText = (selector, text) =>
+  matcher.toContain(w.find(selector).html(), text)
 
-  return {
-    message: () =>
-      `${matcherHint(pass ? '.not.toHaveAClass' : '.toHaveAClass')}\n\n` +
-      'Expected array:\n' +
-      `  ${printExpected(elClassName)}\n` +
-      `To ${pass ? 'not ' : ''}contains value:\n` +
-      `  ${printReceived(className)}`,
-    pass
-  }
-}
+const toBeVisible = selector =>
+  matcher.toBeTruthy(w.find(selector).isVisible())
 
-const toHaveAttribute = (selector, attr, value) => {
-  const el = w.find(selector)
-  const elAttr = el.attributes()[attr]
-  const pass = elAttr === value
+const toBeADomElement = selector =>
+  matcher.toBeTruthy(w.contains(selector))
 
-  return {
-    message: () =>
-      `${matcherHint(pass ? '.not.toHaveAttribute' : '.toHaveAttribute')}\n\n` +
-      `Expected value to ${pass ? 'not ' : ''}be (using ===):\n` +
-      `  ${printExpected(elAttr)}\n` +
-      'Received:\n' +
-      `  ${printReceived(value)}`,
-    pass
-  }
-}
+const toHaveAClass = (selector, className) =>
+  matcher.toContain(getSelector(selector).classes(), className)
 
-const toHaveValue = (selector, value) => {
-  const el = w.find(selector)
-  const elValue = el.element.value
-  const pass = elValue === value
+const toHaveAttribute = (selector, attr, value) =>
+  matcher.toBe(w.find(selector).attributes()[attr], value)
 
-  return {
-    message: () =>
-      `${matcherHint(pass ? '.not.toHaveValue' : '.toHaveValue')}\n\n` +
-      `Expected value to ${pass ? 'not ' : ''}be (using ===):\n` +
-      `  ${printExpected(elValue)}\n` +
-      'Received:\n' +
-      `  ${printReceived(value)}`,
-    pass
-  }
-}
+const toHaveValue = (selector, value) =>
+  matcher.toBe(w.find(selector).element.value, value)
 
-const toEmit = (selector = w, event) => {
-  const eventValue = selector.emitted()[event]
-  const pass = !!eventValue
+const toEmit = (selector = w, event) =>
+  matcher.toBeTruthy(selector.emitted()[event])
 
-  return {
-    message: () =>
-      `${matcherHint(pass ? '.not.toEmit' : '.toEmit')}\n\n` +
-      `Expected value to be ${pass ? 'falsy' : 'truthy'}, instead received:\n` +
-      `  ${printExpected(eventValue)}`,
-    pass
-  }
-}
+const toEmitWith = (selector = w, event, data) => {
+  let eventValue
 
-const isDataInArray = (array, data) =>
-  data.some(d =>
-    array.some(x => x.includes(d)))
-
-const isDataInObject = (array, data) =>
-  array.some(ev => {
-    const keys = Object.keys(data)
-    const values = Object.values(data)
-    return keys.some(k => ev.hasOwnProperty(k) && ev[k] === values[0])
-  })
-
-const toEmitWith = (selector = w, event, ...data) => {
-  let eventValue, pass
+  toEmit(selector, event)
 
   try {
     eventValue = selector.emitted()[event][0]
   } catch (error) {
-    pass = false
+    return {
+      message: () => `Can't find event: '${event}'`,
+      pass: false
+    }
   }
 
-  pass !== false && (pass = data.some(d =>
-    Array.isArray(d)
-      ? isDataInArray(eventValue, d)
-      : d instanceof Object
-        ? isDataInObject(eventValue, d)
-        : eventValue.includes(d)
-  ))
-
-  return {
-    message: () =>
-      `${matcherHint(pass ? '.not.toEmitWith' : '.toEmitWith')}\n\n` +
-      'Expected array:\n' +
-      `  ${printExpected(eventValue)}\n` +
-      `To ${pass ? 'not ' : ''}contains value:\n` +
-      `  ${printReceived(data)}`,
-    pass
-  }
+  return Array.isArray(data)
+    ? matcher.toEqual(eventValue[0], expect.arrayContaining(data))
+    : data instanceof Object
+      ? matcher.toEqual(eventValue[0], expect.objectContaining(data))
+      : matcher.toContain(eventValue, data)
 }
 
 const matchers = wrapper => {

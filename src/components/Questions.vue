@@ -39,9 +39,6 @@ export default {
       this.$emit('isEditing', 40)
       this.editing = true
     },
-    fireStatus () {
-      this.$emit('status', 200, 300, 400, 404, 500)
-    },
     fireObject () {
       const data = {
         company: 'Apple.inc',

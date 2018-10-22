@@ -1,6 +1,9 @@
 import { mount } from '@vue/test-utils'
+import matchers from '../matchers'
 import Questions from '@/components/Questions.vue'
-import matchers from '@/matchers'
+// import vtuMatchers from 'vtu-matchers'
+// import helpers from 'vtu-helpers'
+// https://github.com/hmsk/jest-matcher-vue-test-utils
 
 const inputTitle = 'input[name=title]'
 let wrapper
@@ -25,15 +28,13 @@ describe('Questions', () => {
     it('can success', () => {
       expect(selector).toHaveText(sentence)
 
-      const { pass, message } = matchers(wrapper).toHaveText(selector, sentence)
+      const { pass } = matchers(wrapper).toHaveText(selector, sentence)
       expect(pass).toBeTruthy()
-      expect(message().includes('To not contains')).toBeTruthy()
     })
 
     it('can fail', () => {
-      const { pass, message } = matchers(wrapper).toHaveText(selector, `not ${sentence}`)
+      const { pass } = matchers(wrapper).toHaveText(selector, `not ${sentence}`)
       expect(pass).toBeFalsy()
-      expect(message().includes('To contains')).toBeTruthy()
     })
 
     it('can reverse', () => {
@@ -50,17 +51,15 @@ describe('Questions', () => {
 
       expect(selector).toHaveValue(sentence)
 
-      const { pass, message } = matchers(wrapper).toHaveValue(selector, sentence)
+      const { pass } = matchers(wrapper).toHaveValue(selector, sentence)
       expect(pass).toBeTruthy()
-      expect(message().includes('to not be')).toBeTruthy()
     })
 
     it('can fail', () => {
       setInputValue(selector, sentence)
 
-      const { pass, message } = matchers(wrapper).toHaveValue(selector, `not ${sentence}`)
+      const { pass } = matchers(wrapper).toHaveValue(selector, `not ${sentence}`)
       expect(pass).toBeFalsy()
-      expect(message().includes('to be')).toBeTruthy()
     })
 
     it('can reverse', () => {
@@ -80,17 +79,15 @@ describe('Questions', () => {
 
       expect(wrapper).toEmit(eventName)
 
-      const { pass, message } = matchers(wrapper).toEmit(undefined, eventName)
+      const { pass } = matchers(wrapper).toEmit(undefined, eventName)
       expect(pass).toBeTruthy()
-      expect(message().includes('falsy')).toBeTruthy()
     })
 
     it('can fail', () => {
       trigger(selector)
 
-      const { pass, message } = matchers(wrapper).toEmit(wrapper, `not ${eventName}`)
+      const { pass } = matchers(wrapper).toEmit(wrapper, `not ${eventName}`)
       expect(pass).toBeFalsy()
-      expect(message().includes('truthy')).toBeTruthy()
     })
 
     it('can reverse', () => {
@@ -109,11 +106,8 @@ describe('Questions', () => {
       trigger(selector)
       expect(wrapper).toEmitWith(eventName, eventValue)
 
-      wrapper.vm.fireStatus()
-
-      const { pass, message } = matchers(wrapper).toEmitWith(undefined, eventName, eventValue)
+      const { pass } = matchers(wrapper).toEmitWith(undefined, eventName, eventValue)
       expect(pass).toBeTruthy()
-      expect(message().includes('To not contains')).toBeTruthy()
     })
 
     it('can fail', () => {
@@ -121,7 +115,7 @@ describe('Questions', () => {
 
       const { pass, message } = matchers(wrapper).toEmitWith(wrapper, `not ${eventName}`, eventValue)
       expect(pass).toBeFalsy()
-      expect(message().includes('To contains')).toBeTruthy()
+      expect(message()).toBe(`Can't find event: 'not ${eventName}'`)
     })
 
     it('can reverse', () => {
@@ -149,15 +143,13 @@ describe('Questions', () => {
     it('can success', () => {
       expect(selector).toBeADomElement()
 
-      const { pass, message } = matchers(wrapper).toBeADomElement(selector)
+      const { pass } = matchers(wrapper).toBeADomElement(selector)
       expect(pass).toBeTruthy()
-      expect(message().includes('to not be')).toBeTruthy()
     })
 
     it('can fail', () => {
-      const { pass, message } = matchers(wrapper).toBeADomElement(`not-${selector}`)
+      const { pass } = matchers(wrapper).toBeADomElement(`not-${selector}`)
       expect(pass).toBeFalsy()
-      expect(message().includes('to be')).toBeTruthy()
     })
 
     it('can reverse', () => {
@@ -171,15 +163,13 @@ describe('Questions', () => {
     it('can success', () => {
       expect(selector).toBeVisible()
 
-      const { pass, message } = matchers(wrapper).toBeVisible(selector)
+      const { pass } = matchers(wrapper).toBeVisible(selector)
       expect(pass).toBeTruthy()
-      expect(message().includes('to not be')).toBeTruthy()
     })
 
     it('can fail', () => {
-      const { pass, message } = matchers(wrapper).toBeVisible('ul')
+      const { pass } = matchers(wrapper).toBeVisible('ul')
       expect(pass).toBeFalsy()
-      expect(message().includes('to be')).toBeTruthy()
     })
 
     it('can reverse', () => {
@@ -194,15 +184,13 @@ describe('Questions', () => {
     it('can success', () => {
       expect(wrapper).toHaveAClass('container')
 
-      const { pass, message } = matchers(wrapper).toHaveAClass(selector, className)
+      const { pass } = matchers(wrapper).toHaveAClass(selector, className)
       expect(pass).toBeTruthy()
-      expect(message().includes('To not contains')).toBeTruthy()
     })
 
     it('can fail', () => {
-      const { pass, message } = matchers(wrapper).toHaveAClass(selector, `not-${className}`)
+      const { pass } = matchers(wrapper).toHaveAClass(selector, `not-${className}`)
       expect(pass).toBeFalsy()
-      expect(message().includes('To contains')).toBeTruthy()
     })
 
     it('can reverse', () => {
@@ -218,15 +206,13 @@ describe('Questions', () => {
     it('can success', () => {
       expect(selector).toHaveAttribute(attrName, className)
 
-      const { pass, message } = matchers(wrapper).toHaveAttribute(selector, attrName, className)
+      const { pass } = matchers(wrapper).toHaveAttribute(selector, attrName, className)
       expect(pass).toBeTruthy()
-      expect(message().includes('to not be')).toBeTruthy()
     })
 
     it('can fail', () => {
-      const { pass, message } = matchers(wrapper).toHaveAttribute(selector, attrName, `not-${className}`)
+      const { pass } = matchers(wrapper).toHaveAttribute(selector, attrName, `not-${className}`)
       expect(pass).toBeFalsy()
-      expect(message().includes('to be')).toBeTruthy()
     })
 
     it('can reverse', () => {
