@@ -66,6 +66,26 @@ describe('Questions', () => {
     })
   })
 
+  describe('toHaveProp', () => {
+    const prop = 'name'
+
+    it('can success', () => {
+      expect(wrapper).toHaveProp(prop)
+
+      const { pass } = matchers(wrapper).toHaveProp(wrapper, prop)
+      expect(pass).toBeTruthy()
+    })
+
+    it('can fail', () => {
+      const { pass } = matchers(wrapper).toHaveProp(wrapper, `not-${prop}`)
+      expect(pass).toBeFalsy()
+    })
+
+    it('can reverse', () => {
+      expect(wrapper).not.toHaveProp(`not-${prop}`)
+    })
+  })
+
   describe('toEmit', () => {
     const eventName = 'isEditing'
     const selector = '.edit'

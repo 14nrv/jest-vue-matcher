@@ -30,6 +30,14 @@ export default {
   data: () => ({
     editing: false
   }),
+  props: {
+    name: {
+      type: String
+    },
+    plop: {
+      type: String
+    }
+  },
   methods: {
     update () {
       this.$emit('applied')

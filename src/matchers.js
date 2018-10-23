@@ -32,6 +32,9 @@ const toHaveAttribute = (selector, attr, value) =>
 const toHaveValue = (selector, value) =>
   matcher.toBe(w.find(selector).element.value, value)
 
+const toHaveProp = (selector, propName) =>
+  matcher.toHaveProperty(selector.props(), propName)
+
 const toEmit = (selector = w, event) =>
   matcher.toBeTruthy(selector.emitted()[event])
 
@@ -66,6 +69,7 @@ const matchers = wrapper => {
     toHaveAClass,
     toHaveAttribute,
     toHaveValue,
+    toHaveProp,
     toEmit,
     toEmitWith
   }

@@ -62,6 +62,11 @@ describe('MyComponent', () => {
   expect('input[type=text]').toHaveValue('plop')
   expect('input[type=text]').not.toHaveValue('not plop')
   ```
+* toHaveProp(propName)
+  ```js
+  expect(wrapper).toHaveProp('propName')
+  expect(wrapper).not.toHaveProp('not-propName')
+  ```
 * toEmit(eventName)
   ```js
   expect(wrapper).toEmit('eventName')
