@@ -30,6 +30,14 @@ export default {
   data: () => ({
     editing: false
   }),
+  props: {
+    name: {
+      type: String
+    },
+    plop: {
+      type: String
+    }
+  },
   methods: {
     update () {
       this.$emit('applied')
@@ -38,9 +46,6 @@ export default {
     edit () {
       this.$emit('isEditing', 40)
       this.editing = true
-    },
-    fireStatus () {
-      this.$emit('status', 200, 300, 400, 404, 500)
     },
     fireObject () {
       const data = {
