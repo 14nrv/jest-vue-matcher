@@ -1,6 +1,7 @@
 [![NPM Version](https://img.shields.io/npm/v/jest-vue-matcher.svg)](https://www.npmjs.com/package/jest-vue-matcher)
 [![Build Status](https://travis-ci.org/14nrv/jest-vue-matcher.svg?branch=dev)](https://travis-ci.org/14nrv/jest-vue-matcher)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c384581e3c664076d319/test_coverage)](https://codeclimate.com/github/14nrv/jest-vue-matcher/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c384581e3c664076d319/maintainability)](https://codeclimate.com/github/14nrv/jest-vue-matcher/maintainability)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
