@@ -32,7 +32,7 @@ const toHaveAttribute = (selector, attr, value) =>
 const toHaveValue = (selector, value) =>
   matcher.toBe(w.find(selector).element.value, value)
 
-const toHaveProp = (selector, propName) =>
+const toHaveProp = (selector = w, propName) =>
   matcher.toHaveProperty(selector.props(), propName)
 
 const toEmit = (selector = w, event) =>

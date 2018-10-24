@@ -8,6 +8,34 @@ let wrapper
 const setInputValue = (selector, value) => wrapper.find(selector).setValue(value)
 const trigger = (selector, event = 'click') => wrapper.find(selector).trigger(event)
 
+const test = (action, matcher, selector, value) => {
+  it('can success', () => {
+    action && action()
+
+    expect(selector)[matcher](value)
+
+    const { pass } = matchers(wrapper)[matcher](selector, value)
+    expect(pass).toBeTruthy()
+  })
+
+  it('can fail', () => {
+    action && action()
+
+    const { pass } = value
+      ? matchers(wrapper)[matcher](selector, `not-${value}`)
+      : matchers(wrapper)[matcher](`not-${selector}`)
+    expect(pass).toBeFalsy()
+  })
+
+  it('can reverse', () => {
+    action && action()
+
+    value
+      ? expect(selector).not[matcher](`not-${value}`)
+      : expect(`not-${selector}`).not[matcher]()
+  })
+}
+
 describe('Questions', () => {
   beforeEach(() => {
     wrapper = mount(Questions)
@@ -22,96 +50,29 @@ describe('Questions', () => {
     const sentence = 'Where am i ?'
     const selector = 'h2'
 
-    it('can success', () => {
-      expect(selector).toHaveText(sentence)
-
-      const { pass } = matchers(wrapper).toHaveText(selector, sentence)
-      expect(pass).toBeTruthy()
-    })
-
-    it('can fail', () => {
-      const { pass } = matchers(wrapper).toHaveText(selector, `not ${sentence}`)
-      expect(pass).toBeFalsy()
-    })
-
-    it('can reverse', () => {
-      expect(selector).not.toHaveText(`not ${sentence}`)
-    })
+    test(null, 'toHaveText', selector, sentence)
   })
 
   describe('toHaveValue', () => {
     const selector = inputTitle
     const sentence = 'hello'
+    const action = () => setInputValue(selector, sentence)
 
-    it('can success', () => {
-      setInputValue(selector, sentence)
-
-      expect(selector).toHaveValue(sentence)
-
-      const { pass } = matchers(wrapper).toHaveValue(selector, sentence)
-      expect(pass).toBeTruthy()
-    })
-
-    it('can fail', () => {
-      setInputValue(selector, sentence)
-
-      const { pass } = matchers(wrapper).toHaveValue(selector, `not ${sentence}`)
-      expect(pass).toBeFalsy()
-    })
-
-    it('can reverse', () => {
-      setInputValue(selector, sentence)
-
-      expect(selector).not.toHaveValue(`not ${sentence}`)
-    })
+    test(action, 'toHaveValue', selector, sentence)
   })
 
   describe('toHaveProp', () => {
     const prop = 'name'
 
-    it('can success', () => {
-      expect(wrapper).toHaveProp(prop)
-
-      const { pass } = matchers(wrapper).toHaveProp(wrapper, prop)
-      expect(pass).toBeTruthy()
-    })
-
-    it('can fail', () => {
-      const { pass } = matchers(wrapper).toHaveProp(wrapper, `not-${prop}`)
-      expect(pass).toBeFalsy()
-    })
-
-    it('can reverse', () => {
-      expect(wrapper).not.toHaveProp(`not-${prop}`)
-    })
+    test(null, 'toHaveProp', wrapper, prop)
   })
 
   describe('toEmit', () => {
     const eventName = 'isEditing'
     const selector = '.edit'
+    const action = () => trigger(selector)
 
-    it('can success', () => {
-      trigger(selector)
-      trigger('.update')
-
-      expect(wrapper).toEmit(eventName)
-
-      const { pass } = matchers(wrapper).toEmit(undefined, eventName)
-      expect(pass).toBeTruthy()
-    })
-
-    it('can fail', () => {
-      trigger(selector)
-
-      const { pass } = matchers(wrapper).toEmit(wrapper, `not ${eventName}`)
-      expect(pass).toBeFalsy()
-    })
-
-    it('can reverse', () => {
-      trigger(selector)
-
-      expect(wrapper).not.toEmit(`not ${eventName}`)
-    })
+    test(action, 'toEmit', wrapper, eventName)
   })
 
   describe('toEmitWith', () => {
@@ -157,21 +118,7 @@ describe('Questions', () => {
   describe('toBeADomElement', () => {
     const selector = 'h2'
 
-    it('can success', () => {
-      expect(selector).toBeADomElement()
-
-      const { pass } = matchers(wrapper).toBeADomElement(selector)
-      expect(pass).toBeTruthy()
-    })
-
-    it('can fail', () => {
-      const { pass } = matchers(wrapper).toBeADomElement(`not-${selector}`)
-      expect(pass).toBeFalsy()
-    })
-
-    it('can reverse', () => {
-      expect(`not-${selector}`).not.toBeADomElement()
-    })
+    test(null, 'toBeADomElement', selector)
   })
 
   describe('toBeVisible', () => {
@@ -198,20 +145,10 @@ describe('Questions', () => {
     const selector = 'button'
     const className = 'edit'
 
-    it('can success', () => {
+    test(null, 'toHaveAClass', selector, className)
+
+    it('can check class on wrapper', () => {
       expect(wrapper).toHaveAClass('container')
-
-      const { pass } = matchers(wrapper).toHaveAClass(selector, className)
-      expect(pass).toBeTruthy()
-    })
-
-    it('can fail', () => {
-      const { pass } = matchers(wrapper).toHaveAClass(selector, `not-${className}`)
-      expect(pass).toBeFalsy()
-    })
-
-    it('can reverse', () => {
-      expect(selector).not.toHaveAClass(`not-${className}`)
     })
   })
 
