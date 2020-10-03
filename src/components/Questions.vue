@@ -11,7 +11,7 @@
             <div  class="form-group">
                <input type="text" name="name">
             </div>
-            <button class="update" @click="update">Update</button>
+            <button class="update">Update</button>
             <button class="cancel">Cancel</button>
         </form>
     </div>
@@ -39,10 +39,6 @@ export default {
     }
   },
   methods: {
-    update () {
-      this.$emit('applied')
-      this.editing = true
-    },
     edit () {
       this.$emit('isEditing', 40)
       this.editing = true

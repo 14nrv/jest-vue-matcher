@@ -24,12 +24,7 @@
     ]
   },
   "lint-staged": {
-    "linters": {
-      "*.{js,vue}": "vue-cli-service lint"
-    },
-    "ignore": [
-      "dist/*.js"
-    ]
+    "*.{js,vue}": "vue-cli-service lint"
   },
   "module": "dist/jest-vue-matcher.esm.min.js",
   "main": "dist/jest-vue-matcher.cjs.min.js",
@@ -54,37 +49,44 @@
     "vue-testing-tools"
   ],
   "dependencies": {
-    "vue": "^2.5.17"
+    "vue": "^2.6.11"
   },
   "peerDependencies": {
     "expect": "^23.6.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.2.1",
-    "@commitlint/config-conventional": "^7.1.2",
-    "@semantic-release/changelog": "^3.0.1",
-    "@semantic-release/git": "^7.0.5",
-    "@semantic-release/github": "^5.2.0",
-    "@semantic-release/npm": "^5.0.5",
-    "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-eslint": "^3.0.5",
-    "@vue/cli-plugin-unit-jest": "^3.0.5",
-    "@vue/cli-service": "^3.0.5",
-    "@vue/eslint-config-standard": "^3.0.5",
-    "@vue/test-utils": "^1.0.0-beta.25",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.7",
+    "@semantic-release/npm": "^7.0.5",
+    "@vue/cli-plugin-babel": "^4.4.6",
+    "@vue/cli-plugin-eslint": "^4.4.6",
+    "@vue/cli-plugin-unit-jest": "^4.4.6",
+    "@vue/cli-service": "^4.4.6",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "@vue/test-utils": "^1.0.3",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^23.0.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.1.0",
+    "eslint": "^7.5.0",
     "eslint-junit": "^1.0.1",
-    "eslint-plugin-jest": "^21.25.1",
-    "husky": "^1.1.2",
-    "jest-junit": "^5.2.0",
-    "lint-staged": "^7.3.0",
-    "rollup": "^0.66.6",
-    "rollup-plugin-analyzer": "^2.1.0",
-    "rollup-plugin-uglify-es": "^0.0.1",
-    "semantic-release": "^15.10.3",
-    "vue-template-compiler": "^2.5.17",
-    "wallaby-vue-compiler": "^1.0.3"
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^23.19.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^7.0.0",
+    "husky": "^4.2.5",
+    "jest-junit": "^11.1.0",
+    "lint-staged": "^10.2.11",
+    "rollup": "^2.23.0",
+    "rollup-plugin-analyzer": "^3.3.0",
+    "rollup-plugin-terser": "^6.1.0",
+    "semantic-release": "^17.1.1",
+    "vue-template-compiler": "^2.6.11",
+    "wallaby-vue-compiler": "^1.0.6"
   },
   "jest-junit": {
     "output": "coverage/junit/js-test-results.xml"
