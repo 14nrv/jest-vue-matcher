@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     edit () {
-      this.$emit('isEditing', 40)
+      this.$emit('is-editing', 40)
       this.editing = true
     },
     fireObject () {

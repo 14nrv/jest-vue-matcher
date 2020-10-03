@@ -68,7 +68,7 @@ describe('Questions', () => {
   })
 
   describe('toEmit', () => {
-    const eventName = 'isEditing'
+    const eventName = 'is-editing'
     const selector = '.edit'
     const action = () => trigger(selector)
 
@@ -76,7 +76,7 @@ describe('Questions', () => {
   })
 
   describe('toEmitWith', () => {
-    const eventName = 'isEditing'
+    const eventName = 'is-editing'
     const eventValue = 40
     const selector = '.edit'
 
