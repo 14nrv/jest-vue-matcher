@@ -121,34 +121,14 @@ describe('Questions', () => {
     test(null, 'toBeADomElement', selector)
   })
 
-  describe('toBeVisible', () => {
-    const selector = '.display-4'
-
-    it('can success', () => {
-      expect(selector).toBeVisible()
-
-      const { pass } = matchers(wrapper).toBeVisible(selector)
-      expect(pass).toBeTruthy()
-    })
-
-    it('can fail', () => {
-      const { pass } = matchers(wrapper).toBeVisible('ul')
-      expect(pass).toBeFalsy()
-    })
-
-    it('can reverse', () => {
-      expect('ul').not.toBeVisible()
-    })
-  })
-
-  describe('toHaveAClass', () => {
+  describe('toHaveClass', () => {
     const selector = 'button'
     const className = 'edit'
 
-    test(null, 'toHaveAClass', selector, className)
+    test(null, 'toHaveClass', selector, className)
 
     it('can check class on wrapper', () => {
-      expect(wrapper).toHaveAClass('container')
+      expect(wrapper).toHaveClass('container')
     })
   })
 

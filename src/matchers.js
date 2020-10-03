@@ -4,27 +4,20 @@ import matcher from 'expect/build/matchers'
 let w
 
 // utils
-const getSelector = selector => {
-  try {
-    const isWrapper = selector.isVueInstance()
-    return isWrapper && w
-  } catch (error) {
-    return w.find(selector)
-  }
-}
+const getSelector = selector =>
+  selector.vm
+    ? w
+    : w.find(selector)
 
 // matcher
 const toHaveText = (selector, text) =>
-  matcher.toContain(w.find(selector).html(), text)
-
-const toBeVisible = selector =>
-  matcher.toBeTruthy(w.find(selector).isVisible())
+  matcher.toContain(w.find(selector).text(), text)
 
 const toBeADomElement = selector =>
-  matcher.toBeTruthy(w.contains(selector))
+  matcher.toBeTruthy(w.find(selector).exists())
 
-const toHaveAClass = (selector, className) =>
-  matcher.toContain(getSelector(selector).classes(), className)
+const toHaveClass = (selector, className) =>
+  matcher.toContain(getSelector(selector).attributes('class'), className)
 
 const toHaveAttribute = (selector, attr, value) =>
   matcher.toBe(w.find(selector).attributes()[attr], value)
@@ -64,9 +57,8 @@ const matchers = wrapper => {
 
   return {
     toHaveText,
-    toBeVisible,
     toBeADomElement,
-    toHaveAClass,
+    toHaveClass,
     toHaveAttribute,
     toHaveValue,
     toHaveProp,

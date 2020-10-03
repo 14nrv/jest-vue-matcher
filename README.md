@@ -43,15 +43,10 @@ describe('MyComponent', () => {
   expect('h1').toBeADomElement()
   expect('notH1').not.toBeADomElement()
   ```
-* toBeVisible()
+* toHaveClass(className)
   ```js
-  expect('h1').toBeVisible()
-  expect('not-h1').not.toBeVisible()
-  ```
-* toHaveAClass(className)
-  ```js
-  expect('h1').toHaveAClass('title')
-  expect('h1').not.toHaveAClass('not-title')
+  expect('h1').toHaveClass('title')
+  expect('h1').not.toHaveClass('not-title')
   ```
 * toHaveAttribute(attributeName, attributeValue)
   ```js
